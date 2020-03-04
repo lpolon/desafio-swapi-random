@@ -1,0 +1,13 @@
+.PlanetCard {
+  width: 60vw;
+  max-width: 800px;
+}
+
+.content {
+  text-align: center;
+  overflow: auto;
+}
+
+td, th {
+  width: 50%;
+}

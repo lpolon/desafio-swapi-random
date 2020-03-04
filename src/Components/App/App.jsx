@@ -5,10 +5,33 @@ import './App.css';
 
 import { FontAwesomeIcon as FA } from '@fortawesome/react-fontawesome';
 import { faRebel } from '@fortawesome/free-brands-svg-icons';
-
 import Swapi from '../../Util/Swapi';
 import { getOneRandomArrayElement } from '../../Util/helper';
+
+import PlanetCard from '../PlanetCard/PlanetCard';
+
 const planetsResource = new Swapi('planets');
+
+const fakeData = {
+  name: 'Alderaan',
+  rotation_period: '24',
+  orbital_period: '364',
+  diameter: '12500',
+  climate: 'temperate',
+  gravity: '1 standard',
+  terrain: 'grasslands, mountains',
+  surface_water: '40',
+  population: '2000000000',
+  residents: [
+    'https://swapi.co/api/people/5/',
+    'https://swapi.co/api/people/68/',
+    'https://swapi.co/api/people/81/',
+  ],
+  films: ['https://swapi.co/api/films/6/', 'https://swapi.co/api/films/1/'],
+  created: '2014-12-10T11:35:48.479000Z',
+  edited: '2014-12-20T20:58:18.420000Z',
+  url: 'https://swapi.co/api/planets/2/',
+};
 
 export default function App() {
   const [error, setError] = useState(null);
@@ -36,11 +59,9 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchAllPlanets();
+    // fetchAllPlanets();
     // eslint-disable-next-line
   }, []);
-
-  console.log('oi!', randomPlanet);
 
   return isLoading ? (
     <div className="pageloader is-active has-background-dark">
@@ -61,8 +82,8 @@ export default function App() {
       {error}
     </h1>
   ) : (
-    <div className="App">
-      <h1>oi!</h1>
+    <div className="App has-background-light">
+      <PlanetCard {...fakeData} />
     </div>
   );
 }
