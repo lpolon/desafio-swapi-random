@@ -19,7 +19,7 @@ export default function PlanetCard({
   const renderRows = (props) => {
     return Object.keys(props).map((key, i) => {
       return (
-        <tr key={i} className>
+        <tr key={i}>
           <th className="has-text-right is-capitalized has-text-weight-bold">
             {key}:
           </th>
