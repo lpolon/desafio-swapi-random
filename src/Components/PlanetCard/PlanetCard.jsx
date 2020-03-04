@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './PlanetCard.css';
 
 export default function PlanetCard({
-  films,
+  films = [],
   name,
   climate,
   terrain,

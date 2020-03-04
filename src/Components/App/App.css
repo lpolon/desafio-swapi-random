@@ -6,8 +6,11 @@ html {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   color: black;
-  background-color: #fafafa;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .loader-text-flex {

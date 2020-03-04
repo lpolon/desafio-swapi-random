@@ -1,6 +1,7 @@
 .PlanetCard {
   width: 60vw;
   max-width: 800px;
+  margin-bottom: 2rem;
 }
 
 .content {
