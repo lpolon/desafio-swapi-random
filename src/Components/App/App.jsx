@@ -62,16 +62,7 @@ export default function App() {
   }, []);
 
   return isLoading ? (
-    <div className="pageloader is-active has-background-dark">
-      <div className="loader-text-flex">
-        <div className="is-size-3 has-text-light">
-          Restoring freedom to the galaxy...
-        </div>
-        <div className="icon-container">
-          <FA icon={faRebel} size="4x" color="hsl(0, 0%, 96%)" />
-        </div>
-      </div>
-    </div>
+    <PageLoader />
   ) : error !== null ? (
     <h1
       className="content title is-size-1 is-white has-text-danger"
@@ -90,6 +81,21 @@ export default function App() {
       </div>
       <div>
         <GetRandomPlanet onInput={handleInput} />
+      </div>
+    </div>
+  );
+}
+
+function PageLoader() {
+  return (
+    <div className="pageloader is-active has-background-dark">
+      <div className="loader-text-flex">
+        <div className="is-size-3 has-text-light">
+          Restoring freedom to the galaxy...
+        </div>
+        <div className="icon-container">
+          <FA icon={faRebel} size="4x" color="hsl(0, 0%, 96%)" />
+        </div>
       </div>
     </div>
   );
