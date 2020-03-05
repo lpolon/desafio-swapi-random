@@ -12,7 +12,7 @@ Quando a aplicação carrega pela primeira vez, ela busca todos os planetas disp
 Clicando no botão "Next" ou na seta direita do teclado, busca-se um próximo cartão com outro planeta aleatório.
 
 
-# Comentários sobre "decisões de arquitetura"
+# Comentários sobre a arquitetura utilizada
 ##  "single source of truth":
 dado o escopo do desafio, todo o contexto global dessa aplicação vem do estado do App. App.jsx compartilha o estado utilizando o conceito de [lifting state up](https://reactjs.org/docs/lifting-state-up.html).
 
