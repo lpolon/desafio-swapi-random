@@ -3,8 +3,11 @@ import 'bulma/css/bulma.css';
 import 'bulma-pageloader';
 import './App.css';
 
+import { useTransition, animated } from 'react-spring';
+
 import { FontAwesomeIcon as FA } from '@fortawesome/react-fontawesome';
 import { faRebel } from '@fortawesome/free-brands-svg-icons';
+
 import Swapi from '../../Util/Swapi';
 import { getOneRandomArrayElement } from '../../Util/helper';
 
@@ -12,32 +15,42 @@ import PlanetCard from '../PlanetCard/PlanetCard';
 import GetRandomPlanet from '../GetRandomPlanetButton';
 const planetsResource = new Swapi('planets');
 
-// const fakeData = {
-//   name: 'Alderaan',
-//   rotation_period: '24',
-//   orbital_period: '364',
-//   diameter: '12500',
-//   climate: 'temperate',
-//   gravity: '1 standard',
-//   terrain: 'grasslands, mountains',
-//   surface_water: '40',
-//   population: '2000000000',
-//   residents: [
-//     'https://swapi.co/api/people/5/',
-//     'https://swapi.co/api/people/68/',
-//     'https://swapi.co/api/people/81/',
-//   ],
-//   films: ['https://swapi.co/api/films/6/', 'https://swapi.co/api/films/1/'],
-//   created: '2014-12-10T11:35:48.479000Z',
-//   edited: '2014-12-20T20:58:18.420000Z',
-//   url: 'https://swapi.co/api/planets/2/',
-// };
+const fakeData = {
+  name: 'Alderaan',
+  rotation_period: '24',
+  orbital_period: '364',
+  diameter: '12500',
+  climate: 'temperate',
+  gravity: '1 standard',
+  terrain: 'grasslands, mountains',
+  surface_water: '40',
+  population: '2000000000',
+  residents: [
+    'https://swapi.co/api/people/5/',
+    'https://swapi.co/api/people/68/',
+    'https://swapi.co/api/people/81/',
+  ],
+  films: ['https://swapi.co/api/films/6/', 'https://swapi.co/api/films/1/'],
+  created: '2014-12-10T11:35:48.479000Z',
+  edited: '2014-12-20T20:58:18.420000Z',
+  url: 'https://swapi.co/api/planets/2/',
+};
 
 export default function App() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [planets, setPlanets] = useState([]);
   const [randomPlanet, setRandomPlanet] = useState({});
+
+  const [number, set] = useState(1);
+  const transitions = useTransition(number, null, {
+    from: {
+      opacity: 0,
+      transform: 'translate3d(100%,0,0)',
+    },
+    enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+    leave: { opacity: 0, transform: 'translate3d(-50%,0,0)', position: 'absolute', },
+  });
 
   const fetchAllPlanets = async () => {
     setIsLoading(true);
@@ -54,13 +67,14 @@ export default function App() {
   };
 
   const handleInput = () => {
-    console.log('oi')
     const planet = getOneRandomArrayElement(planets);
+    let newNumber = Number(number);
+    set(newNumber+=1);
     setRandomPlanet(planet);
   };
 
   useEffect(() => {
-    fetchAllPlanets();
+    // fetchAllPlanets();
     // eslint-disable-next-line
   }, []);
 
@@ -84,8 +98,16 @@ export default function App() {
     </h1>
   ) : (
     <div className="App has-background-light">
-      <PlanetCard {...randomPlanet} />
-      <GetRandomPlanet onInput={handleInput} />
+      <div>
+        {transitions.map(({ item, key, props }) =>
+            <animated.div key={key} style={props}>
+              <PlanetCard {...fakeData} />
+            </animated.div>
+        )}
+      </div>
+      <div>
+        <GetRandomPlanet onInput={handleInput} />
+      </div>
     </div>
   );
 }
