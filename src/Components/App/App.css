@@ -11,6 +11,7 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .loader-text-flex {
@@ -30,5 +31,11 @@ html {
 @media only screen and (min-width: 1020px) {
   html {
     font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  html {
+    font-size: 12px;
   }
 }

@@ -13,6 +13,8 @@ export default function PlanetCard({
   let numberOfFilmsString;
   if (films.length === 0) {
     numberOfFilmsString = `not featured in any films`;
+  } else if (films.length === 1) {
+    numberOfFilmsString = `featured in ${films.length} film`;
   } else {
     numberOfFilmsString = `featured in ${films.length} films`;
   }
@@ -33,19 +35,16 @@ export default function PlanetCard({
       <header className="card-header">
         <p className="card-header-title title is-centered">{name}</p>
       </header>
-      <div className="card-content">
-        <div className="content">
+      <div className="content">
+        <div className="card-content">
           <table className="table is-hoverable is-fullwidth">
             <tbody className="table-body">
               {renderRows({ climate, terrain, population })}
             </tbody>
           </table>
-          <br />
-          <span className="is-italic">
-          {numberOfFilmsString}
-          </span>
         </div>
       </div>
+      <div className="is-italic films-container">{numberOfFilmsString}</div>
     </div>
   );
 }
