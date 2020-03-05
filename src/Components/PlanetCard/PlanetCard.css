@@ -17,11 +17,6 @@ th {
   width: 50%;
 }
 
-.table {
-  border-top: 1px solid #dbdbdb !important;
-  border-bottom: 1px solid #dbdbdb !important;
-}
-
 .films-container {
   text-align: center;
   margin-bottom: 0.6rem;
