@@ -15,12 +15,10 @@ import GetRandomPlanet from '../GetRandomPlanetButton';
 const planetsResource = new Swapi('planets');
 
 export default function App() {
-  console.log('oi, render!!!!');
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [planets, setPlanets] = useState([]);
-  const [randomPlanet, setRandomPlanet] = useState({});
-  const [index, setIndex] = useState(0);
+  const [randomPlanet, setRandomPlanet] = useState([]);
 
   const fetchAllPlanets = async () => {
     setIsLoading(true);
@@ -30,50 +28,35 @@ export default function App() {
       setIsLoading(false);
     } else {
       const planet = getOneRandomArrayElement(response);
+      setRandomPlanet([planet]);
       setPlanets(response);
-      setRandomPlanet(planet);
       setIsLoading(false);
     }
   };
 
   const handleInput = () => {
     const planet = getOneRandomArrayElement(planets);
-    // setRandomPlanet(planet);
-    setIndex((state) => (state + 1) % 2)
+    setRandomPlanet([planet]);
   };
 
   useEffect(() => {
-    console.log('eu só deveria rodar uma vez!');
     fetchAllPlanets();
     // eslint-disable-next-line
   }, []);
 
-  // animation:
-  const prevRandomPlanet = usePrevious(randomPlanet);
-  const planetCardsArr = [
-    ({ style }) => (<animated.div style={{ ...style }}><PlanetCard {...randomPlanet} /></animated.div>),
-    ({ style }) => (<animated.div style={{ ...style }}><PlanetCard {...prevRandomPlanet} /></animated.div>),
-  ];
-  console.log('random planet!', randomPlanet);
-  console.log('random planet anterior!!', prevRandomPlanet);
-
-  const transitions = useTransition(
-    index,
-    planet => planet,
-    {
-      from: {
-        opacity: 0,
-        transform: 'translate3d(100%,0,0)',
-      },
-      enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-      leave: {
-        opacity: 0,
-        transform: 'translate3d(-100%,0,0)',
-        position: 'absolute',
-      },
-      config: config.default,
-    }
-  );
+  const transitions = useTransition(randomPlanet, (planet) => planet.name, {
+    from: {
+      opacity: 0,
+      transform: 'translate3d(100%,0,0)',
+    },
+    enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
+    leave: {
+      opacity: 0,
+      transform: 'translate3d(-100%,0,0)',
+      position: 'absolute',
+    },
+    config: config.default,
+  });
 
   return isLoading ? (
     <PageLoader />
@@ -86,10 +69,15 @@ export default function App() {
     </h1>
   ) : (
     <div className="App has-background-light">
-      {transitions.map(({ item, props, key }) => {
-        const Planet = planetCardsArr[item];
-        return <Planet key={key} style={props} />;
-      })}
+      <div>
+        {transitions.map(({ item, props, key }) => {
+          return (
+            <animated.div key={key} style={props}>
+              <PlanetCard {...item} />
+            </animated.div>
+          );
+        })}
+      </div>
       <div>
         <GetRandomPlanet onInput={handleInput} />
       </div>
@@ -110,12 +98,4 @@ function PageLoader() {
       </div>
     </div>
   );
-}
-
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
 }
