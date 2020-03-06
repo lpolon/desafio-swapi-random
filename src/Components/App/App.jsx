@@ -18,7 +18,7 @@ export default function App() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [planets, setPlanets] = useState([]);
-  const [randomPlanet, setRandomPlanet] = useState([]);
+  const [randomPlanet, setRandomPlanet] = useState({});
 
   const fetchAllPlanets = async () => {
     setIsLoading(true);
@@ -28,7 +28,7 @@ export default function App() {
       setIsLoading(false);
     } else {
       const planet = getOneRandomArrayElement(response);
-      setRandomPlanet([planet]);
+      setRandomPlanet(planet);
       setPlanets(response);
       setIsLoading(false);
     }
@@ -36,7 +36,7 @@ export default function App() {
 
   const handleInput = () => {
     const planet = getOneRandomArrayElement(planets);
-    setRandomPlanet([planet]);
+    setRandomPlanet(planet);
   };
 
   useEffect(() => {
