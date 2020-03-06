@@ -6,7 +6,7 @@ link para o app:
 ### https://desafio-ame-leo.herokuapp.com/
 
 # Como funciona
-Quando a aplicação carrega pela primeira vez, ela busca todos os planetas disponíveis em uma [API de starwars](https://swapi.co/), e carrega um deles aleatoriamente no cartão.
+Quando a aplicação carrega pela primeira vez, ela busca todos os planetas disponíveis em uma [API de Star Wars](https://swapi.co/), e carrega um deles aleatoriamente no cartão.
 
 
 Clicando no botão "Next" ou na seta direita do teclado, busca-se um próximo cartão com outro planeta aleatório.
