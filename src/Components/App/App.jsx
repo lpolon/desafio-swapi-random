@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bulma/css/bulma.css';
 import 'bulma-pageloader';
 import './App.css';
